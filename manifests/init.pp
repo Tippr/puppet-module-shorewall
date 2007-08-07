@@ -6,7 +6,8 @@
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
 #
 # Changes:
-#  * FHS Layout (use CONFIG_PATH)
+#  * FHS Layout: put configuration in /var/lib/puppet/modules/shorewall and
+#    adjust CONFIG_PATH
 #  * remove shorewall- prefix from defines in the shorewall namespace
 #  * refactor the whole define structure
 #  * manage all shorewall files
