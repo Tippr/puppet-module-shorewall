@@ -75,9 +75,30 @@ class shorewall {
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
 	managed_file{ interfaces: }
-	define interface($zone, $broadcast = 'detect', $options = 'tcpflags,blacklist,norfc1918,routefilter,nosmurfs,logmartians') {
+	define interface(
+		$zone,
+		$broadcast = 'detect',
+		$options = 'tcpflags,blacklist,norfc1918,routefilter,nosmurfs,logmartians',
+		$rfc1918 = false,
+		$dhcp = false,
+		)
+	{
+		if $rfc1918 {
+			if $dhcp {
+				$options_real = "${options},dhcp"
+			} else {
+				$options_real = $options
+			}
+		} else {
+			if $dhcp {
+				$options_real = "${options},norfc1918,dhcp"
+			} else {
+				$options_real = "${options},norfc1918"
+			}
+		}
+
 		entry { "interfaces.d/${name}":
-			line => "${zone} ${name} ${broadcast} ${options}",
+			line => "${zone} ${name} ${broadcast} ${options_real}",
 		}
 	}
 
