@@ -80,7 +80,7 @@ class shorewall {
 		$broadcast = 'detect',
 		$options = 'tcpflags,blacklist,norfc1918,routefilter,nosmurfs,logmartians',
 		$rfc1918 = false,
-		$dhcp = false,
+		$dhcp = false
 		)
 	{
 		if $rfc1918 {
