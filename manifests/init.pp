@@ -6,7 +6,7 @@
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
 #
 # Changes:
-#  * FHS Layout: put configuration in /var/lib/puppet/modules/shorewall and
+#  * FHS Layout: put configuration in ${module_dir_path}/shorewall and
 #    adjust CONFIG_PATH
 #  * remove shorewall- prefix from defines in the shorewall namespace
 #  * refactor the whole define structure
@@ -16,7 +16,7 @@
 #  * add managing for masq, proxyarp, blacklist, nat, rfc1918
 
 
-modules_dir { "shorewall": }
+module_dir { "shorewall": }
 
 class shorewall {
 
@@ -26,8 +26,8 @@ class shorewall {
 	
 	# private
 	define managed_file () {
-		$dir = "/var/lib/puppet/modules/shorewall/${name}.d"
-		concatenated_file { "/var/lib/puppet/modules/shorewall/$name":
+		$dir = "${module_dir_path}/shorewall/${name}.d"
+		concatenated_file { "${module_dir_path}/shorewall/$name":
 			dir => $dir,
 			mode => 0600,
 		}
@@ -45,7 +45,7 @@ class shorewall {
 
 	# private
 	define entry ($line) {
-		$target = "/var/lib/puppet/modules/shorewall/${name}"
+		$target = "${module_dir_path}/shorewall/${name}"
 		$dir = dirname($target)
 		file { $target:
 			content => "${line}\n",
