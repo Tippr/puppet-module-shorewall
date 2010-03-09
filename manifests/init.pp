@@ -33,11 +33,11 @@ class shorewall {
 		}
 		file {
 			"${dir}/000-header":
-				source => "puppet://$servername/shorewall/boilerplate/${name}.header",
+				source => "puppet:///modules/shorewall/boilerplate/${name}.header",
 				mode => 0600, owner => root, group => root,
 				notify => Exec["concat_${dir}"];
 			"${dir}/999-footer":
-				source => "puppet://$servername/shorewall/boilerplate/${name}.footer",
+				source => "puppet:///modules/shorewall/boilerplate/${name}.footer",
 				mode => 0600, owner => root, group => root,
 				notify => Exec["concat_${dir}"];
 		}
@@ -58,9 +58,9 @@ class shorewall {
 	file { "/etc/shorewall/shorewall.conf":
 		# use OS specific defaults, but use Debian/etch if no other is found
 		source => [
-			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
-			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$servername/shorewall/shorewall.conf.Debian.etch" ],
+			"puppet:///modules/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
+			"puppet:///modules/shorewall/shorewall.conf.$operatingsystem",
+			"puppet:///modules/shorewall/shorewall.conf.Debian.etch" ],
 		mode => 0644, owner => root, group => root,
 	}
 
