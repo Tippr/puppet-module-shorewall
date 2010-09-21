@@ -97,7 +97,7 @@ class shorewall {
 			}
 		}
 
-		entry { "interfaces.d/${name}":
+		entry { "interfaces.d/100-${name}":
 			line => "${zone} ${name} ${broadcast} ${options_real}",
 		}
 	}
@@ -105,7 +105,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Hosts
 	managed_file { hosts: }
 	define host($zone, $options = 'tcpflags,blacklist,norfc1918') {
-		entry { "hosts.d/${name}":
+		entry { "hosts.d/100-${name}":
 			line => "${zone} ${name} ${options}"
 		}
 	}
@@ -139,7 +139,7 @@ class shorewall {
 	managed_file{ masq: }
 	# mark is new in 3.4.4
 	define masq($interface, $address, $proto = '-', $port = '-', $ipsec = '-', $mark = '') {
-		entry { "masq.d/${name}":
+		entry { "masq.d/100-${name}":
 			line => "${interface} ${name} ${address} ${proto} ${port} ${ipsec} ${mark}"
 		}
 	}
@@ -147,7 +147,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
 	managed_file { proxyarp: }
 	define proxyarp($interface, $external, $haveroute = yes, $persistent = no) {
-		entry { "proxyarp.d/${name}":
+		entry { "proxyarp.d/100-${name}":
 			line => "${name} ${interface} ${external} ${haveroute} ${persistent}"
 		}
 	}
@@ -155,7 +155,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#NAT
 	managed_file { nat: }
 	define nat($interface, $internal, $all = 'no', $local = 'yes') {
-		entry { "nat.d/${name}":
+		entry { "nat.d/100-${name}":
 			line => "${name} ${interface} ${internal} ${all} ${local}"
 		}
 	}
@@ -163,7 +163,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
 	managed_file { blacklist: }
 	define blacklist($proto = '-', $port = '-') {
-		entry { "blacklist.d/${name}":
+		entry { "blacklist.d/100-${name}":
 			line => "${name} ${proto} ${port}",
 		}
 	}
@@ -171,7 +171,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
 	managed_file { rfc1918: }
 	define rfc1918($action = 'logdrop') {
-		entry { "rfc1918.d/${name}":
+		entry { "rfc1918.d/100-${name}":
 			line => "${name} ${action}"
 		}
 	}
@@ -179,7 +179,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
 	managed_file { routestopped: }
 	define routestopped($host = '-', $options = '') {
-		entry { "routestopped.d/${name}":
+		entry { "routestopped.d/100-${name}":
 			line => "${name} ${host} ${options}",
 		}
 	}
